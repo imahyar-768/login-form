@@ -1,11 +1,8 @@
 import {Formik, Field, Form, FormikHelpers} from 'formik';
 import * as Yup from 'yup';
+import Router from 'next/router'
 import styles from './login-form.module.css';
-
-interface Values {
-    email: string;
-    password: string;
-}
+import { User } from '../interface';
 
 const SignupSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Required'),
@@ -26,12 +23,20 @@ const LoginForm = () => {
             }}
             validationSchema={SignupSchema}    
             onSubmit = {(
-                values: Values,
-                { setSubmitting }: FormikHelpers<Values>
+                values: User,
+                { setSubmitting }: FormikHelpers<User>
             ) => {
                 setTimeout(() => {
-                    alert(JSON.stringify(values, null, 2))
-                    setSubmitting(false);
+                    fetch('http://localhost:5000/users', {
+                        method: 'POST',
+                        headers: {'Content-Type' : 'application/json'},
+                        body: JSON.stringify(values)
+                    })
+                    .then(res => res.json())
+                    .then(data => Router.push("/profile"))
+                    .finally(() => {
+                        setSubmitting(false);
+                    })
                 }, 500)
                 
             }}
@@ -39,11 +44,13 @@ const LoginForm = () => {
             {({ errors, touched }) => (
                 <Form>
                     <div className='mb-3'>
-                        <Field id="email" name="email" type='email' placeholder="Email" />
+                        <label htmlFor='email' className='form-label'>Email:</label>
+                        <Field className='form-control' id="email" name="email" type='email' placeholder="Email" />
                         {errors.email && touched.email ? <div className={styles.error}>{errors.email}</div> : null}
                     </div>
                     <div className='mb-3'>
-                        <Field id="password" name="password" placeholder="Password" />
+                        <label htmlFor='password' className='form-label'>Password:</label>
+                        <Field id="password" className='form-control' name="password" type='password' placeholder="Password" />
                         {errors.password && touched.password ? (<div className={styles.error}>{errors.password}</div>) : null}
                     </div>
                     <button type="submit" className='btn btn-primary'>Login</button>

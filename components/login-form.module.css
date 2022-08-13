@@ -2,9 +2,9 @@
     width: 340px;
     border-radius: 12px;
     background-color: #fff;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 .error {
     color: #FF3333;
     font-weight: 500;
-
 }

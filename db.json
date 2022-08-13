@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "email": "tst@tst.com",
+      "password": "a12345678",
+      "id": 1
+    },
+    {
+      "email": "test.test@gmail.com",
+      "password": "a123456789",
+      "id": 2
+    },
+    {
+      "email": "souri.test@gmail.com",
+      "password": "a123456987",
+      "id": 3
+    },
+    {
+      "email": "test@tst.com",
+      "password": "1123123aa",
+      "id": 4
+    }
+  ]
+}
