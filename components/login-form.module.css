@@ -2,5 +2,9 @@
     width: 340px;
     border-radius: 12px;
     background-color: #fff;
-    text-align: center;
+}
+.error {
+    color: #FF3333;
+    font-weight: 500;
+
 }
